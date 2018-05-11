@@ -1,0 +1,20 @@
+set shScript to "#!/bin/bash/expect
+
+
+expect -c \"
+spawn telnet 10.40.31.121 9993
+expect \\\"Escape character is '^]'.
+\\\"
+expect \\\"500 connection info:
+\\\"
+expect \\\"protocol version: 1.8
+\\\"
+expect \\\"model: Blackmagic HyperDeck Studio Mini
+\\\"
+send \\\"record\\r\\\"
+send \\\"quit\\r\\\"
+\"
+"
+
+
+do shell script "sh -c " & quoted form of shScript
