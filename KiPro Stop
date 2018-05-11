@@ -1,0 +1,32 @@
+set shScript to "#!/bin/bash/expect
+
+
+expect -c \"
+exp_internal 1
+spawn telnet 10.40.31.122 80
+expect \\\"Escape character is '^]'.
+\\\"
+send \\\"POST /config HTTP/1.1\\r\\\"
+send \\\"Content-Type: application/x-www-form-urlencoded\\r\\\"
+send \\\"Content-Length: 46\\r\\\"
+send \\\"\\r\\\"
+send \\\"newValue=4&paramName=eParamID_TransportCommand\\r\\\"
+expect \\\"HTTP/1.1 200 OK\\\"
+\"
+
+
+expect -c\"
+spawn telnet 10.40.31.123 80
+expect \\\"Escape character is '^]'.
+\\\"
+send \\\"POST /config HTTP/1.1\\r\\\"
+send \\\"Content-Type: application/x-www-form-urlencoded\\r\\\"
+send \\\"Content-Length: 46\\r\\\"
+send \\\"\\r\\\"
+send \\\"newValue=4&paramName=eParamID_TransportCommand\\r\\\"
+expect \\\"HTTP/1.1 200 OK\\\"
+\"
+"
+
+
+do shell script "sh -c " & quoted form of shScript
