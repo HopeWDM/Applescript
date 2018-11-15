@@ -1,7 +1,52 @@
+with timeout of 10 seconds
+end timeout
 set shScript to "#!/bin/bash/expect
 
 
-expect -c \"
+expect -c\"
+exp_internal 1
+spawn telnet 10.40.31.122 80
+expect \\\"Escape character is '^]'.
+\\\"
+send \\\"POST /config HTTP/1.1\\r\\\"
+send \\\"Content-Type: application/x-www-form-urlencoded\\r\\\"
+send \\\"Content-Length: 40\\r\\\"
+send \\\"\\r\\\"
+send \\\"newValue=0&paramName=eParamID_MediaState\\r\\\"
+expect \\\"HTTP/1.1 200 OK\\\"
+expect eof
+\"
+"
+
+do shell script "sh -c " & quoted form of shScript
+
+
+with timeout of 10 seconds
+end timeout
+set shScript to "#!/bin/bash/expect
+
+expect -c\"
+spawn telnet 10.40.31.123 80
+expect \\\"Escape character is '^]'.
+\\\"
+send \\\"POST /config HTTP/1.1\\r\\\"
+send \\\"Content-Type: application/x-www-form-urlencoded\\r\\\"
+send \\\"Content-Length: 40\\r\\\"
+send \\\"\\r\\\"
+send \\\"newValue=0&paramName=eParamID_MediaState\\r\\\"
+expect \\\"HTTP/1.1 200 OK\\\"
+expect eof
+\"
+"
+
+do shell script "sh -c " & quoted form of shScript
+
+with timeout of 10 seconds
+end timeout
+set shScript to "#!/bin/bash/expect
+
+
+expect -c\"
 exp_internal 1
 spawn telnet 10.40.31.122 80
 expect \\\"Escape character is '^]'.
@@ -12,8 +57,16 @@ send \\\"Content-Length: 46\\r\\\"
 send \\\"\\r\\\"
 send \\\"newValue=3&paramName=eParamID_TransportCommand\\r\\\"
 expect \\\"HTTP/1.1 200 OK\\\"
+expect eof
 \"
+"
 
+do shell script "sh -c " & quoted form of shScript
+
+
+with timeout of 10 seconds
+end timeout
+set shScript to "#!/bin/bash/expect
 
 expect -c\"
 spawn telnet 10.40.31.123 80
@@ -25,8 +78,8 @@ send \\\"Content-Length: 46\\r\\\"
 send \\\"\\r\\\"
 send \\\"newValue=3&paramName=eParamID_TransportCommand\\r\\\"
 expect \\\"HTTP/1.1 200 OK\\\"
+expect eof
 \"
 "
-
 
 do shell script "sh -c " & quoted form of shScript
